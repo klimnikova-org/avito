@@ -1,5 +1,3 @@
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user-dto';
 import {
     Body,
     Controller,
@@ -10,30 +8,37 @@ import {
     Post,
 } from '@nestjs/common';
 
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user-dto';
+import { User } from './interfaces/user.interface';
+
 @Controller('users')
 export class UsersController {
+    constructor(private userService: UserService) {}
+
     @Get()
-    findAll(): string {
-        return 'This action returns all users';
+    async findAll(): Promise<User[]> {
+        return this.userService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string): string {
-        return `This action returns a #${id} user`;
+    async findOne(@Param('id') id: string): Promise<User> {
+        return this.userService.findOne(id);
     }
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-        return 'This action adds a new user';
+        this.userService.create(createUserDto);
     }
 
     @Patch()
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+        this.userService.update(id, updateUserDto);
     }
 
     @Delete()
     remove(@Param('id') id: string) {
-        return `This action delete a ${id} user`;
+        this.userService.remove(id);
     }
 }
