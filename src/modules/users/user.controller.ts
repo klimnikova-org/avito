@@ -11,19 +11,18 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
-import { User } from './interfaces/user.interface';
 
 @Controller('users')
 export class UsersController {
     constructor(private userService: UserService) {}
 
     @Get()
-    async findAll(): Promise<User[]> {
+    async findAll() {
         return this.userService.findAll();
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<User> {
+    async findOne(@Param('id') id: number) {
         return this.userService.findOne(id);
     }
 
@@ -33,12 +32,15 @@ export class UsersController {
     }
 
     @Patch()
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    async update(
+        @Param('id') id: number,
+        @Body() updateUserDto: UpdateUserDto,
+    ) {
         this.userService.update(id, updateUserDto);
     }
 
     @Delete()
-    remove(@Param('id') id: string) {
+    async remove(@Param('id') id: number) {
         this.userService.remove(id);
     }
 }
