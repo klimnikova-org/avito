@@ -21,14 +21,14 @@ export class UsersController {
         return this.userService.findAll();
     }
 
-    @Get(':id')
+    @Get()
     async findOne(@Param('id') id: number) {
         return this.userService.findOne(id);
     }
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-        this.userService.create(createUserDto);
+        return this.userService.create(createUserDto);
     }
 
     @Patch()
@@ -36,11 +36,11 @@ export class UsersController {
         @Param('id') id: number,
         @Body() updateUserDto: UpdateUserDto,
     ) {
-        this.userService.update(id, updateUserDto);
+        return this.userService.update(id, updateUserDto);
     }
 
     @Delete()
     async remove(@Param('id') id: number) {
-        this.userService.remove(id);
+        return this.userService.remove(id);
     }
 }

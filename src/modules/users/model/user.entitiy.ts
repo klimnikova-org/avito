@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsInt, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 @Entity()
 export class UserEntity {
@@ -10,9 +10,8 @@ export class UserEntity {
     @IsNotEmpty()
     name: string;
 
-    @Column()
-    @IsInt()
-    phone: number;
+    @Column({ length: 11 })
+    phone: string;
 
     @Column({ length: 100 })
     @IsEmail()

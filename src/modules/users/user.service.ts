@@ -23,7 +23,7 @@ export class UserService {
             .where('user.email = :email', { email })
             .orWhere('user.phone = :phone', { phone });
 
-        const user = qb.getOne();
+        const user = await qb.getOne();
 
         if (user) {
             const errors = 'У вас уже есть аккаунт.';
@@ -40,6 +40,7 @@ export class UserService {
         newUser.phone = phone;
 
         const errors = await validate(newUser);
+
         if (errors.length > 0) {
             throw new HttpException(
                 { message: 'Некорректные введенные данные.', errors },
