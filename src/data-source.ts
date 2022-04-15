@@ -16,8 +16,8 @@ if (somethingIsNotDefined) {
     throw new Error(`One or more environmental variables are not defined`);
 }
 
-export const AppDataSource = new DataSource({
-    type: 'postgres',
+export const dataBaseOptions = {
+    type: 'postgres' as const,
     host: DB_HOST,
     port: Number(DB_PORT),
     username: DB_USER,
@@ -28,4 +28,6 @@ export const AppDataSource = new DataSource({
     entities: [UserEntity],
     subscribers: [],
     migrations: [],
-});
+};
+
+export const AppDataSource = new DataSource(dataBaseOptions);
