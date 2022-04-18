@@ -1,0 +1,29 @@
+# POST http://localhost:3000/users
+# content-type: application/json
+
+# {
+#     "name": "Maria",
+#     "phone": "89001231212",
+#     "email": "test@mail.ru",
+#     "password": "password"
+# }
+
+
+
+# GET http://localhost:3000/users
+
+
+# GET http://localhost:3000/users?id=1
+
+
+# PATCH  http://localhost:3000/users?id=1
+# content-type: application/json
+
+# {
+#     "name": "User",
+#     "phone": "89001231212",
+#     "email": "test@mail.ru",
+#     "password": "password"
+# }
+
+DELETE http://localhost:3000/users?id=2

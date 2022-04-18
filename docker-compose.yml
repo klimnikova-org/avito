@@ -1,0 +1,32 @@
+version: '3'
+services:
+  back:
+    image: docker.io/klimnikova/back-avito:1
+    container_name: back-avito
+    depends_on:
+      - postgres
+    environment:
+      DB_NAME: avito
+      DB_USER: oksana
+      DB_PASSWORD: academy
+      DB_PORT: 5432
+      DB_HOST: postgres
+    ports:
+      - '3000:3000'
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+    ports:
+      - '5432:5432'
+
+volumes:
+  dbdata:
+    driver: local

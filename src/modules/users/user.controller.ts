@@ -11,34 +11,36 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
-import { User } from './interfaces/user.interface';
 
 @Controller('users')
 export class UsersController {
     constructor(private userService: UserService) {}
 
     @Get()
-    async findAll(): Promise<User[]> {
+    async findAll() {
         return this.userService.findAll();
     }
 
-    @Get(':id')
-    async findOne(@Param('id') id: string): Promise<User> {
+    @Get()
+    async findOne(@Param('id') id: number) {
         return this.userService.findOne(id);
     }
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-        this.userService.create(createUserDto);
+        return this.userService.create(createUserDto);
     }
 
     @Patch()
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        this.userService.update(id, updateUserDto);
+    async update(
+        @Param('id') id: number,
+        @Body() updateUserDto: UpdateUserDto,
+    ) {
+        return this.userService.update(id, updateUserDto);
     }
 
     @Delete()
-    remove(@Param('id') id: string) {
-        this.userService.remove(id);
+    async remove(@Param('id') id: number) {
+        return this.userService.remove(id);
     }
 }
