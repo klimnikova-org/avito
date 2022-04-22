@@ -12,6 +12,6 @@ async function bootstrap() {
 }
 bootstrap();
 
-AppDataSource.initialize()
-    .then(() => {})
-    .catch((error) => console.log(error));
+// AppDataSource.initialize()
+//     .then(() => {})
+//     .catch((error) => console.log(error));

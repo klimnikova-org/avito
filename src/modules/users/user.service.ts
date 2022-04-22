@@ -18,6 +18,7 @@ export class UserService {
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
         const { name, phone, email, password } = dto;
+        // TODO: Использовать userRepository
         const qb = await AppDataSource.getRepository(UserEntity)
             .createQueryBuilder('user')
             .where('user.email = :email', { email })
@@ -36,9 +37,11 @@ export class UserService {
         const newUser = new UserEntity();
         newUser.email = email;
         newUser.name = name;
+        // TODO: hash пароля
         newUser.password = password;
         newUser.phone = phone;
 
+        // TODO: Валидируем параметры а не энтити
         const errors = await validate(newUser);
 
         if (errors.length > 0) {
@@ -47,13 +50,12 @@ export class UserService {
                 HttpStatus.BAD_REQUEST,
             );
         } else {
-            const savedUser = await this.userRepository.save(newUser);
-            return savedUser;
+            return this.userRepository.save(newUser);
         }
     }
 
     async findAll(): Promise<UserEntity[]> {
-        return await this.userRepository.find();
+        return this.userRepository.find();
     }
 
     async findOne(id: number): Promise<UserEntity | null> {
@@ -82,6 +84,6 @@ export class UserService {
     }
 
     async remove(id: number) {
-        return await this.userRepository.delete({ id });
+        return this.userRepository.delete({ id });
     }
 }

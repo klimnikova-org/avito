@@ -1,32 +1,30 @@
 version: '3'
+
 services:
   back:
-    image: docker.io/klimnikova/back-avito:1
-    container_name: back-avito
+    image: node:16
+    working_dir: /opt/nest-lessons/app
+    command: ["yarn", "start:dev"]
+    env_file:
+      - ./.env.example
     depends_on:
-      - postgres
-    environment:
-      DB_NAME: avito
-      DB_USER: oksana
-      DB_PASSWORD: academy
-      DB_PORT: 5432
-      DB_HOST: postgres
+      postgres:
+        condition: service_healthy
     ports:
-      - '3000:3000'
+      - "3000:3000"
+    volumes:
+      - "./:/opt/nest-lessons/app"
 
   postgres:
-    image: postgres
+    image: postgres:13
     container_name: postgres
-    volumes:
-      - ./data:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: pg_isready -U oksana -d avito
+      interval: 10s
+      timeout: 3s
+      retries: 3
     restart: always
     environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-    ports:
-      - '5432:5432'
-
-volumes:
-  dbdata:
-    driver: local
+      - POSTGRES_PASSWORD=academy
+      - POSTGRES_DB=avito
+      - POSTGRES_USER=oksana
