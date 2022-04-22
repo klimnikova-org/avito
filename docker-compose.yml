@@ -3,23 +3,23 @@ version: '3'
 services:
   back:
     image: node:16
-    working_dir: /opt/nest-lessons/app
-    command: ["yarn", "start:dev"]
+    working_dir: /avito/app
+    command: ['npm', 'run', 'start:dev']
     env_file:
-      - ./.env.example
+      - ./.env
     depends_on:
       postgres:
         condition: service_healthy
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
-      - "./:/opt/nest-lessons/app"
+      - './:/avito/app'
 
   postgres:
     image: postgres:13
     container_name: postgres
     healthcheck:
-      test: pg_isready -U oksana -d avito
+      test: pg_isready -U db_user -d avito
       interval: 10s
       timeout: 3s
       retries: 3
@@ -27,4 +27,4 @@ services:
     environment:
       - POSTGRES_PASSWORD=academy
       - POSTGRES_DB=avito
-      - POSTGRES_USER=oksana
+      - POSTGRES_USER=db_user
