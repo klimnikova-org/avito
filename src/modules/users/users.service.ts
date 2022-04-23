@@ -1,13 +1,13 @@
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { InjectRepository } from '@nestjs/typeorm';
-import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
+import { hash } from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UserEntity } from './model/user.entitiy';
-import { AppDataSource } from '../../data-source';
+import { SALT_ROUNDS } from 'src/constants';
 
 @Injectable()
 export class UsersService {
@@ -18,13 +18,9 @@ export class UsersService {
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
         const { name, phone, email, password } = dto;
-        // TODO: Использовать userRepository
-        const qb = await AppDataSource.getRepository(UserEntity)
-            .createQueryBuilder('user')
-            .where('user.email = :email', { email })
-            .orWhere('user.phone = :phone', { phone });
-
-        const user = await qb.getOne();
+        const user = await this.userRepository.findOne({
+            where: [{ phone }, { email }],
+        });
 
         if (user) {
             const errors = 'У вас уже есть аккаунт.';
@@ -37,21 +33,10 @@ export class UsersService {
         const newUser = new UserEntity();
         newUser.email = email;
         newUser.name = name;
-        // TODO: hash пароля
-        newUser.password = password;
+        newUser.password = await hash(password, SALT_ROUNDS);
         newUser.phone = phone;
 
-        // TODO: Валидируем параметры а не энтити
-        const errors = await validate(newUser);
-
-        if (errors.length > 0) {
-            throw new HttpException(
-                { message: 'Некорректные введенные данные.', errors },
-                HttpStatus.BAD_REQUEST,
-            );
-        } else {
-            return this.usersRepository.save(newUser);
-        }
+        return this.usersRepository.save(newUser);
     }
 
     async findAll(): Promise<UserEntity[]> {
@@ -62,7 +47,18 @@ export class UsersService {
         const user = await this.usersRepository.findOne({ where: { id } });
 
         if (!user) {
-            const errors = 'User not found';
+            const errors = 'Пользователь не найден';
+            throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+        }
+
+        return user;
+    }
+
+    async findOneByEmail(email: string): Promise<UserEntity | null> {
+        const user = await this.usersRepository.findOne({ where: { email } });
+
+        if (!user) {
+            const errors = 'Пользователь не найден';
             throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
         }
 
@@ -84,6 +80,13 @@ export class UsersService {
     }
 
     async remove(id: number) {
-        return this.usersRepository.delete({ id });
+        const user = await this.usersRepository.findOne({ where: { id } });
+
+        if (!user) {
+            const errors = 'Пользователь не найден';
+            throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+        }
+
+        return await this.usersRepository.remove(user);
     }
 }
