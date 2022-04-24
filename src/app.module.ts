@@ -2,12 +2,12 @@ import { dataBaseOptions } from './data-source';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UserModule } from './modules/users/user.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot({ ...dataBaseOptions, synchronize: false }),
-        UserModule,
+        UsersModule,
     ],
 })
 export class AppModule {}

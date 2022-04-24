@@ -7,13 +7,13 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UserEntity } from './model/user.entitiy';
-import { AppDataSource } from './../../data-source';
+import { AppDataSource } from '../../data-source';
 
 @Injectable()
-export class UserService {
+export class UsersService {
     constructor(
         @InjectRepository(UserEntity)
-        private readonly userRepository: Repository<UserEntity>,
+        private readonly usersRepository: Repository<UserEntity>,
     ) {}
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
@@ -50,16 +50,16 @@ export class UserService {
                 HttpStatus.BAD_REQUEST,
             );
         } else {
-            return this.userRepository.save(newUser);
+            return this.usersRepository.save(newUser);
         }
     }
 
     async findAll(): Promise<UserEntity[]> {
-        return this.userRepository.find();
+        return this.usersRepository.find();
     }
 
     async findOne(id: number): Promise<UserEntity | null> {
-        const user = await this.userRepository.findOne({ where: { id } });
+        const user = await this.usersRepository.findOne({ where: { id } });
 
         if (!user) {
             const errors = 'User not found';
@@ -73,17 +73,17 @@ export class UserService {
         id: number,
         newUser: UpdateUserDto,
     ): Promise<UserEntity | null> {
-        const user = await this.userRepository.findOne({ where: { id } });
+        const user = await this.usersRepository.findOne({ where: { id } });
 
         if (!user) {
             const errors = 'User not found';
             throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
         }
         const updateUser = { ...user, ...newUser };
-        return await this.userRepository.save(updateUser);
+        return await this.usersRepository.save(updateUser);
     }
 
     async remove(id: number) {
-        return this.userRepository.delete({ id });
+        return this.usersRepository.delete({ id });
     }
 }

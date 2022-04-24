@@ -8,13 +8,13 @@ import {
     Post,
 } from '@nestjs/common';
 
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 
 @Controller('users')
 export class UsersController {
-    constructor(private userService: UserService) {}
+    constructor(private userService: UsersService) {}
 
     @Get()
     async findAll() {
