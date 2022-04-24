@@ -5,7 +5,7 @@
 #     "name": "Maria",
 #     "phone": "89001231212",
 #     "email": "test@mail.ru",
-#     "password": "password"
+#     "password": "123"
 # }
 
 
@@ -26,4 +26,14 @@
 #     "password": "password"
 # }
 
-DELETE http://localhost:3000/users?id=2
+# DELETE http://localhost:3000/users?id=2
+
+
+# POST http://localhost:3000/auth/login
+# content-type: application/json
+
+# {
+    
+#     "email": "test@mail.ru",
+#     "password": "123"
+# }

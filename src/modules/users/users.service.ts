@@ -18,7 +18,7 @@ export class UsersService {
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
         const { name, phone, email, password } = dto;
-        const user = await this.userRepository.findOne({
+        const user = await this.usersRepository.findOne({
             where: [{ phone }, { email }],
         });
 
@@ -56,11 +56,6 @@ export class UsersService {
 
     async findOneByEmail(email: string): Promise<UserEntity | null> {
         const user = await this.usersRepository.findOne({ where: { email } });
-
-        if (!user) {
-            const errors = 'Пользователь не найден';
-            throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
-        }
 
         return user;
     }
