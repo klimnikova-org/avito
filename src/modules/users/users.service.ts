@@ -7,7 +7,7 @@ import { hash } from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UserEntity } from './model/user.entitiy';
-import { SALT_ROUNDS } from 'src/constants';
+import { SALT_ROUNDS } from 'src/modules/users/constants';
 
 @Injectable()
 export class UsersService {

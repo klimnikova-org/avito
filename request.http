@@ -37,3 +37,18 @@
 #     "email": "test@mail.ru",
 #     "password": "123"
 # }
+
+# GET http://localhost:3000/profile
+# authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwODk1ODUyLCJleHAiOjE2NTA4OTY0NTJ9.xe8jDvL36mtzQznEqit3WUTvcpY6PTXscuMDOiNth-Q
+
+
+# POST http://localhost:3000/auth/refresh-token
+# content-type: application/json
+
+# {
+#     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwODk1OTA5LCJleHAiOjE2NTE1MDA3MDl9.XeLiJhMx7MedeuvzugmTzDSE4QruhRqhTPb2cszNjbI"
+# }
+
+
+# GET http://localhost:3000/auth/logout
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwOTA2OTIwLCJleHAiOjE2NTA5MDc1MjB9.0q9siCnwMIvgiG2550IgzJqMIluA3DZ9vexFPwvMmsg
