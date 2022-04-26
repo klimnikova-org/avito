@@ -26,7 +26,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
         return {
             id: payload.sub,
             email: payload.email,
-            exp: payload.exp,
+            sessionId: payload.sessionId,
             refreshToken,
         };
     }

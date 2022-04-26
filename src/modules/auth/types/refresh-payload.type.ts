@@ -3,4 +3,5 @@ export type RefreshPayload = {
     email: string;
     exp: string;
     refreshToken: string;
+    sessionId: string;
 };

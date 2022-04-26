@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 
 import { UserEntity } from './modules/users/model/user.entitiy';
-import { RefreshTokenEntity } from './modules/refresh-token/model/refresh-token.entity';
+import { Tokens } from './modules/tokens/model/tokens';
 
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
@@ -26,7 +26,7 @@ export const dataBaseOptions = {
     database: DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [UserEntity, RefreshTokenEntity],
+    entities: [UserEntity, Tokens],
     subscribers: [],
     migrations: [],
 };

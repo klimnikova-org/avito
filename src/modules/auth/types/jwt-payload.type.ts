@@ -3,4 +3,5 @@ export type JwtPayload = {
     sub: number;
     iat: string;
     exp: string;
+    sessionId: string;
 };
