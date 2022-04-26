@@ -1,54 +1,74 @@
-# POST http://localhost:3000/users
-# content-type: application/json
+POST http://localhost:3000/users
+content-type: application/json
 
-# {
-#     "name": "Maria",
-#     "phone": "89001231212",
-#     "email": "test@mail.ru",
-#     "password": "123"
-# }
+{
+    "name": "Maria",
+    "phone": "89001231212",
+    "email": "test@mail.ru",
+    "password": "123"
+}
 
+###
 
+GET http://localhost:3000/users
 
-# GET http://localhost:3000/users
-
-
-# GET http://localhost:3000/users?id=1
-
-
-# PATCH  http://localhost:3000/users?id=1
-# content-type: application/json
-
-# {
-#     "name": "User",
-#     "phone": "89001231212",
-#     "email": "test@mail.ru",
-#     "password": "password"
-# }
-
-# DELETE http://localhost:3000/users?id=2
+###
 
 
-# POST http://localhost:3000/auth/login
-# content-type: application/json
+GET http://localhost:3000/users?id=1
 
-# {
+### 
+
+PATCH  http://localhost:3000/users?id=1
+content-type: application/json
+
+{
+    "name": "User",
+    "phone": "89001231212",
+    "email": "test@mail.ru",
+    "password": "password"
+}
+
+###
+DELETE http://localhost:3000/users?id=2
+
+###
+POST http://localhost:3000/auth/login
+content-type: application/json
+
+{
     
-#     "email": "test@mail.ru",
-#     "password": "123"
-# }
+    "email": "test@mail.ru",
+    "password": "123"
+}
 
-# GET http://localhost:3000/profile
-# authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwODk1ODUyLCJleHAiOjE2NTA4OTY0NTJ9.xe8jDvL36mtzQznEqit3WUTvcpY6PTXscuMDOiNth-Q
+###
 
+POST http://localhost:3000/auth/refresh-token
+content-type: application/json
 
-# POST http://localhost:3000/auth/refresh-token
-# content-type: application/json
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1Iiwic2Vzc2lvbklkIjoiMGRmMmZlOTEtZTg1OS00NDIyLWE3NTAtZGY1NTM2MmQzNWMyIiwiaWF0IjoxNjUwOTk5MjI2LCJleHAiOjE2NTE2MDQwMjZ9.hecgxkndyB55NM-sUhN98NigpK0B1hrt-o0YvtGKQ7Y"
+}
 
-# {
-#     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwODk1OTA5LCJleHAiOjE2NTE1MDA3MDl9.XeLiJhMx7MedeuvzugmTzDSE4QruhRqhTPb2cszNjbI"
-# }
+###
 
+GET http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1Iiwic2Vzc2lvbklkIjoiMmJlZTUyNmUtYTY5ZC00ZDM2LThiZjEtMWUxOGQxZjNhNTAwIiwiaWF0IjoxNjUwOTEzODAyLCJleHAiOjE2NTA5MTQ0MDJ9.-6lGy9v5LHkRrjzLZSalL79fVAfG5XgtT4-343Ty1MA
 
-# GET http://localhost:3000/auth/logout
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1IiwiaWF0IjoxNjUwOTA2OTIwLCJleHAiOjE2NTA5MDc1MjB9.0q9siCnwMIvgiG2550IgzJqMIluA3DZ9vexFPwvMmsg
+###
+
+POST http://localhost:3000/offers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1Iiwic2Vzc2lvbklkIjoiNTZmNWUyOGUtMTBmNS00MzJhLTg0MmEtY2NkZDk5MWY5ZWM4IiwiaWF0IjoxNjUxMDA1NTg0LCJleHAiOjE2NTEwMDYxODR9.gJ7vrGPutZIn0nkCib2_pX7msQ3kEUHW5IG-K4wB7P8
+Content-type: application/json
+
+{
+    "name": "диван",
+    "description": "Продам хороший диван. Дорого",
+    "price": 12000
+}
+
+###
+
+GET http://localhost:3000/offers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBtYWlsLnJ1Iiwic2Vzc2lvbklkIjoiNTZmNWUyOGUtMTBmNS00MzJhLTg0MmEtY2NkZDk5MWY5ZWM4IiwiaWF0IjoxNjUxMDA1NTg0LCJleHAiOjE2NTEwMDYxODR9.gJ7vrGPutZIn0nkCib2_pX7msQ3kEUHW5IG-K4wB7P8
