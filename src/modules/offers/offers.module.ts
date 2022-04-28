@@ -1,3 +1,4 @@
+import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -6,7 +7,7 @@ import { OffersService } from './offers.service';
 import { Offer } from './model/offer';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Offer])],
+    imports: [TypeOrmModule.forFeature([Offer]), JwtModule.register({})],
     controllers: [OffersController],
     providers: [OffersService],
     exports: [OffersService],

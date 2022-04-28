@@ -1,19 +1,19 @@
 version: '3'
 
 services:
-  back:
-    image: node:16
-    working_dir: /avito/app
-    command: ['npm', 'run', 'start:dev']
-    env_file:
-      - ./.env
-    depends_on:
-      postgres:
-        condition: service_healthy
-    ports:
-      - '3000:3000'
-    volumes:
-      - './:/avito/app'
+  # back:
+  #   image: node:16
+  #   working_dir: /avito/app
+  #   command: ['npm', 'run', 'start:dev']
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - './:/avito/app'
 
   postgres:
     image: postgres:13
@@ -28,3 +28,5 @@ services:
       - POSTGRES_PASSWORD=academy
       - POSTGRES_DB=avito
       - POSTGRES_USER=db_user
+    ports:
+      - '5432:5432'

@@ -1,3 +1,4 @@
+import { OfferGuard } from './guards/offer.guard';
 import {
     Body,
     Controller,
@@ -38,8 +39,10 @@ export class OffersController {
     }
 
     @UseGuards(AccessGuard)
+    @UseGuards(OfferGuard)
     @Patch()
     async update(@Param('id') id: number, @Body() updateUserDto: OfferDto) {
+        console.log(id);
         return this.offersService.update(id, updateUserDto);
     }
 
