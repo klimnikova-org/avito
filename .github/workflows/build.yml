@@ -1,0 +1,25 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: avito
+  DOCKER_REPOSITORY: fanyshu
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Release | checkout code from master
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+        
+      - name: Release | build
+        working-directory: ./backend
+        run: make build
+
+      - name: Release | tags
+        run: docker tag $DOCKER_REPOSITORY/$APP_NAME:$GITHUB_SHA $DOCKER_REPOSITORY/$APP_NAME:latest
